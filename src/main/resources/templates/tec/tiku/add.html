@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form" action="doAdd">
+					<span>学科:</span><br />
+					<select name="subject" id="subject">
+						<option>请选择学科</option>
+					</select><br /><br />
+					<div style="width: 8%;">
+						<span>分值:</span> <br />
+						<input type="number" min="1" max="100" class="form-control" name="score" /><br />
+					</div>
+					<span>题目:</span> <br />
+					<textarea name="title" placeholder="请在此处描述题目" rows="6" cols="100"></textarea><br />
+					<div id="div1">
+						<div style="width: 730px;">
+							<span>选项A:</span><br />
+							<input class="form-control" name="opa" /><br />
+							<span>选项B:</span><br />
+							<input class="form-control" name="opb" /><br />
+							<span>选项C:</span><br />
+							<input class="form-control" name="opc" /><br />
+							<span>选项D:</span><br />
+							<input class="form-control" name="opd" /><br />
+						</div>
+						<span>答案:</span><br />
+						<select name="key" id="key1">
+							<option>正确选项</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+						</select>
+					</div>
+					<br />
+					<button id="bt" class="btn btn-default">确认</button>
+					<a href="page" class="btn btn-danger">取消</a>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script>
+		$.ajax({
+			url:"getAllSub",
+			dataType:"json",
+			success:function(res){
+				for(var i of res){
+					$("#subject").append("<option value='"+i.subId+"'>"+i.subName+" </option>")
+				}
+			}
+		})
+	</script>
+</html>

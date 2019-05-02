@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.OptionMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.Option">
+		<result column="queid" jdbcType="INTEGER" property="queid" />
+		<result column="score" jdbcType="INTEGER" property="score" />
+		<result column="subjects" jdbcType="VARCHAR" property="subject" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="opa" jdbcType="VARCHAR" property="opa" />
+		<result column="opb" jdbcType="VARCHAR" property="opb" />
+		<result column="opc" jdbcType="VARCHAR" property="opc" />
+		<result column="opd" jdbcType="VARCHAR" property="opd" />
+		<result column="rkey" jdbcType="VARCHAR" property="key" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+	</resultMap>
+	<select id="getAll" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT * FROM `option`
+		<if test="subjects!=null">
+			where subjects=#{subjects}
+		</if>
+	</select>
+	<delete id="delByID" parameterType="java.lang.String">
+		DELETE FROM `option` WHERE
+		queid =#{id}
+	</delete>
+	<insert id="insertOP" parameterType="com.example.pojo.Option">
+		INSERT INTO
+		`option`(score,subjects,title,opa,opb,opc,opd,rkey,date)
+		VALUES(#{score},#{subject},#{title},#{opa},#{opb},#{opc},#{opd},#{key},#{date})
+	</insert>
+	<select id="getByID" resultMap="BaseResultMap">
+		select * from `option` where
+		queid=#{id}
+	</select>
+	<update id="edit1" parameterType="com.example.pojo.Option">
+		update `option` set
+		<if test="subject!=null">subjects=#{subject}</if>
+		<if test="score!=null">,score=#{score}</if>
+		<if test="title!=null">,title=#{title}</if>
+		<if test="opa!=null">,opa=#{title}</if>
+		<if test="opb!=null">,opb=#{opb}</if>
+		<if test="opc!=null">,opc=#{opc}</if>
+		<if test="opd!=null">,opd=#{opd}</if>
+		<if test="key!=null">,rkey=#{key}</if>
+		<if test="date!=null">,date=#{date}</if>
+		where queid=#{queid}
+	</update>
+	<select id="getBySubID" resultMap="BaseResultMap">
+		SELECT
+		`option`.queid,
+		`option`.score,
+		`option`.subjects,
+		`option`.title,
+		`option`.opa,
+		`option`.opb,
+		`option`.opc,
+		`option`.opd,
+		`option`.rkey,
+		`option`.date
+		FROM
+		sub_op
+		INNER JOIN `option` ON sub_op.opid = `option`.queid
+		WHERE subid=#{subid}
+	</select>
+</mapper>

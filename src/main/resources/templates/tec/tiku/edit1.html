@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>编辑选择题</title>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form role="form" action="edit1">
+				<input type="hidden" name="queid" th:value="${op.queid}"> <input
+					type="hidden" id="subM" th:value="${op.subject}"> <span>学科:</span><br />
+				<select name="subject" id="subject">
+					<option>请选择学科</option>
+				</select><br />
+				<div style="width: 8%;">
+						<span>分值:</span> <br />
+						<input th:value="${op.score}" type="number" min="1" max="100" class="form-control" name="score" /><br />
+					</div>
+				<br /> <span>题目:</span> <br />
+				<textarea th:text="${op.title}" name="title" placeholder="请在此处描述题目"
+					rows="10" cols="100"></textarea>
+				<br />
+				<div id="div1">
+					<div style="width: 730px;">
+						<span>选项A:</span><br /> <input class="form-control" name="opa"
+							th:value="${op.opa}" /><br /> <span>选项B:</span><br /> <input
+							class="form-control" name="opb" th:value="${op.opb}" /><br /> <span>选项C:</span><br />
+						<input class="form-control" name="opc" th:value="${op.opc}" /><br />
+						<span>选项D:</span><br /> <input class="form-control" name="opd"
+							th:value="${op.opd}" /><br />
+					</div>
+					<span>答案:</span><br /> <select name="key" id="key1">
+						<option>正确选项</option>
+						<option value="A" th:selected='${op.key=="A"}'>A</option>
+						<option value="B" th:selected='${op.key=="B"}'>B</option>
+						<option value="C" th:selected='${op.key=="C"}'>C</option>
+						<option value="D" th:selected='${op.key=="D"}'>D</option>
+					</select>
+				</div>
+				<br />
+				<button id="bt" class="btn btn-default">确认</button>
+				<a href="page" class="btn btn-danger">取消</a>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+$.ajax({
+	url:"getAllSub",
+	dataType:"json",
+	success:function(res){
+		var subM=$("#subM").val();
+		for(var i of res){
+			if(i.subId==subM){
+				$("#subject").append("<option selected='selected' value='"+i.subId+"'>"+i.subName+" </option>")
+			}else{
+				$("#subject").append("<option value='"+i.subId+"'>"+i.subName+" </option>")
+			}
+		}
+	}
+})
+
+</script>
+</html>

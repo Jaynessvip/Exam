@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.UserSubMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.UserSub">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="uid" jdbcType="INTEGER" property="uid" />
+		<result column="subid" jdbcType="INTEGER" property="subid" />
+		<result column="statu" jdbcType="SMALLINT" property="statu" />
+	</resultMap>
+	<insert id="insert" parameterType="com.example.pojo.UserSub">
+		insert into user_sub (id, uid,
+		subid,
+		statu)
+		values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER},
+		#{subid,jdbcType=INTEGER},
+		#{statu,jdbcType=SMALLINT})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.example.pojo.UserSub">
+		insert into user_sub
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="subid != null">
+				subid,
+			</if>
+			<if test="statu != null">
+				statu,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="uid != null">
+				#{uid,jdbcType=INTEGER},
+			</if>
+			<if test="subid != null">
+				#{subid,jdbcType=INTEGER},
+			</if>
+			<if test="statu != null">
+				#{statu,jdbcType=SMALLINT},
+			</if>
+		</trim>
+	</insert>
+	<delete id="delByUID">
+		delete from user_sub where uid=#{uid}
+	</delete>
+	<update id="updateStatu">
+		UPDATE user_sub SET statu = 1 WHERE uid = #{uid} AND
+		subid=#{subid}
+	</update>
+	<select id="getStatu" resultType="java.lang.String">
+		SELECT
+		statu
+		FROM
+		user_sub
+		WHERE
+		uid = #{uid}
+		AND subid = #{subid};
+	</select>
+</mapper>

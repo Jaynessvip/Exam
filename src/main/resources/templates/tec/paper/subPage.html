@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+
+		<div class="row" style="margin: 10px;">
+			<div class="col-sm-6 col-md-3" th:each="i:${list}">
+				<div class="thumbnail">
+					<img src="/static/images/timg.jpg" alt="通用的占位符缩略图">
+					<div class="caption">
+						<h3 th:text="${i.subName}"></h3>
+						<p></p>
+						<p>
+							<a th:href="@{'subList?subjects='+${i.subId}}" class="btn btn-primary" role="button">
+								确认
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

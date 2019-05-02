@@ -1,0 +1,70 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<form id="frm" action="doScore">
+			<input type="hidden" name="subid" th:value="${subid}">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" align="center" th:text="${name}"></h3>
+					<p align="right" id="time" style="color: white;"></p>
+				</div>
+				<div>
+					<div style="padding-left: 10px;" th:each="i:${list}">
+						
+						<label for="name" th:text="${iStat.count}+'.'+${i.title}+'（ ）'"></label>
+						<span class="badge" th:text="${i.score}"></span>
+						<div class="radio">
+							<label>
+								<input type="radio" th:name="${i.queid}" value="A" th:text="'A.'+${i.opa}">
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" th:name="${i.queid}" value="B" th:text="'B.'+${i.opb}">
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" th:name="${i.queid}" value="C" th:text="'C.'+${i.opc}">
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" th:name="${i.queid}" value="D" th:text="'D.'+${i.opd}">
+							</label>
+						</div>
+					</div>
+					</dir>
+					<div align="center" style="padding-bottom: 10px;">
+						<button type="submit" class="btn btn-danger">提交</button>
+					</div>
+				</div>
+		</form>
+	</body>
+	<script>
+		var times = 60; //剩余时间,单位秒
+		var timeDiv = document.getElementById("time");
+		var timeObj = null;
+
+		function timer() {
+			if (times == 0) {
+				//倒计时结束，提交表单
+				document.getElementById("frm").submit();
+				window.clearInterval(timeObj);
+				return;
+			}
+			var t = "剩余时间:" + Math.floor(times / 60) + "分" + times % 60 + "秒"
+			timeDiv.innerHTML = t;
+			times--;
+		}
+		timeObj = window.setInterval(timer, 1000);
+	</script>
+</html>

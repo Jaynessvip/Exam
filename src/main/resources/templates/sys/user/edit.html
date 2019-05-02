@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>编辑用户信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/js/cookie.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-body">
+        <form class="layui-form" action="editData" method="post">
+        <input type="hidden" name="uid" th:value="${uid}">
+          <div class="layui-form-item">
+              <label for="name" class="layui-form-label">
+                  <span class="x-red">*</span>姓名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text"  name="name" class="layui-input" th:value="${user.name}">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>用户真实姓名
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="phone" class="layui-form-label">
+                  <span class="x-red">*</span>年龄
+              </label>
+              <div class="layui-input-inline">
+                  <input type="number" name="age" min="0" class="layui-input" th:value="${user.age}">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>用户年龄
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>性别
+              </label>
+              <div class="layui-input-inline">
+	                  <select name="sex">
+	                  	<option th:selected='${user.sex=="女"}' value="女" >女</option>
+	                  	<option th:selected='${user.sex=="男"}' value="男">男</option>
+	                  </select>
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>用户性别
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_pass" class="layui-form-label">
+                  <span class="x-red">*</span>身份证号
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="cardid" class="layui-input" th:value="${user.cardid}">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  	<span class="x-red">*</span>中国居民身份证号
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>学位类型
+              </label>
+              <div class="layui-input-inline">
+                  <select name="edu">
+	                <option th:selected='${user.edu=="博士"}' value="博士">博士</option>
+	                <option th:selected='${user.edu=="硕士"}' value="硕士">硕士</option>
+                  	<option th:selected='${user.edu=="本科"}' value="本科">本科</option>
+                  	<option th:selected='${user.edu=="专科"}' value="专科">专科</option>
+                  </select>
+                  
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>用户学位类型
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_pass" class="layui-form-label">
+                  <span class="x-red">*</span>入学时间
+              </label>
+              <div class="layui-input-inline">
+                  <input type="date"  name="date1" class="layui-input" th:value="${date}">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  	<span class="x-red">*</span>用户入学时间
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_pass" class="layui-form-label">
+                  <span class="x-red">*</span>专业
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text"  class="layui-input" name="major" th:value="${user.major}">
+              </div>
+              <div class="layui-form-mid layui-word-aux" >
+                  	<span class="x-red">*</span>用户专业
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  确认
+              </button>
+              <a class="layui-btn" href="listPage">返回</a>
+          </div>
+      </form>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>学科题库</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<link rel="stylesheet" href="/static/css/font.css">
+<link rel="stylesheet" href="/static/css/xadmin.css">
+<link rel="stylesheet" type="text/css" href="/static/css/kkpager_orange.css" />
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/kkpager.js"></script>
+<script type="text/javascript" src="/static/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/xadmin.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+</head>
+<body>
+	<div class="x-body">
+		<form action="paper">
+		<input id="subj" name="subjects" type="hidden" th:value="${subjects}">
+		<xblock>
+		<button type="submit" class="layui-btn layui-btn-danger" onclick="delAll()">生成</button>
+		</xblock>
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>分值</th>
+					<th>题目</th>
+					<th>答案</th>
+					<th>A</th>
+					<th>B</th>
+					<th>C</th>
+					<th>D</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+		</table>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+    var subjects=$("#subj").val();
+	$.ajax({
+		url:"getAll",
+		data:{subjects:subjects},
+		dataType:"json",
+		success:function(res){
+  			$("#tbody").html("");
+			for(var i of res){
+				$("#tbody").append("<tr>");
+				$("#tbody").append("<td><input name='ids' type='checkbox' value="+i.queid+"></td>");
+				$("#tbody").append("<td>"+i.score+"</td>");
+				$("#tbody").append("<td>"+i.title+"</td>");
+				$("#tbody").append("<td>"+i.key+"</td>");
+				$("#tbody").append("<td>"+i.opa+"</td>");
+				$("#tbody").append("<td>"+i.opb+"</td>");
+				$("#tbody").append("<td>"+i.opc+"</td>");
+				$("#tbody").append("<td>"+i.opd+"</td>");
+				$("#tbody").append("</tr>");
+			} 
+  			$("#total").append(total)
+		}
+	})
+</script>
+</html>

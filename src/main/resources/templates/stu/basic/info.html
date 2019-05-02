@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>个人信息</title>
+</head>
+<body>
+<head>
+<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<table class="table table-bordered">
+			<caption>如果信息有误请与管理员联系</caption>
+			<thead align="center">
+				<tr align="center">
+					<th colspan="2">个人信息</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>姓名</td>
+					<td th:text="${user.name}"></td>
+				</tr>
+				<tr>
+					<td>年龄</td>
+					<td th:text="${user.age}"></td>
+				</tr>
+				<tr>
+					<td>性别</td>
+					<td th:text="${user.sex}"></td>
+				</tr>
+				<tr>
+					<td>身份证号</td>
+					<td th:text="${user.cardid}"></td>
+				</tr>
+				<tr>
+					<td>专业</td>
+					<td th:text="${user.major}"></td>
+				</tr>
+				<tr>
+					<td>学位类型</td>
+					<td th:text="${user.edu}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</body>
+
+</html>

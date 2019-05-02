@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>用户列表</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<link rel="stylesheet" href="/static/css/font.css">
+<link rel="stylesheet" href="/static/css/xadmin.css">
+<link rel="stylesheet" type="text/css"
+	href="/static/css/kkpager_orange.css" />
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/kkpager.js"></script>
+<script type="text/javascript" src="/static/lib/layui/layui.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/xadmin.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+</head>
+
+<body>
+	<div class="x-body">
+		<div class="layui-row">
+			<form class="layui-form layui-col-md12 x-so" method="get" action="/user/dosearch">
+				<input type="text" name="search" id="search" placeholder="搜索登录名"
+					autocomplete="off" class="layui-input" th:value="${search}">
+				<button class="layui-btn" lay-submit="" lay-filter="sreach">
+					<i class="layui-icon">&#xe615;</i>
+				</button>
+			</form>
+		</div>
+		<form action="delMore" method="post">
+		<xblock>
+        <button class="layui-btn layui-btn-danger" type="submit"><i class="layui-icon"></i>批量删除</button>
+        <a class="layui-btn" href="page"><i class="layui-icon"></i>添加</a>
+        <span class="x-right" style="line-height:40px">数据库总数据：<span id="datanum"></span> 条</span>
+      	</xblock>
+      	
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<th>选择</th>
+					<th>登录名</th>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>身份证号</th>
+					<th>学历</th>
+					<th>入学时间</th>
+					<th>专业</th>
+					<th>操作</th>
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+			
+		</table>
+		</form>
+		<div id="kkpager"></div>
+	</div>
+
+</body>
+<script>
+		$.ajax({
+			url:"/power/firstdata",
+			data:{"search":$("#search").val()},
+			dataType:"json",
+			success:function(e){
+				kkpager.generPageHtml({
+					//当前页码
+					pno : '1',
+					//设置为click模式
+					mode : 'click', 
+					//总页码  
+					total : e.total,
+					//总数据条数  
+					totalRecords : e.totalRecords,
+					//点击页码、页码输入框跳转、以及首页、下一页等按钮都会调用click
+					//适用于不刷新页面，比如ajax
+					click : function(n) {
+						//这里可以做自已的处理
+						$.ajax({
+							url:"/power/dolist",
+							data:{"num":n,"search":$("#search").val()},
+							type:"post",
+							dataType:"json",
+							success:function (e){
+								$("#tbody").html("");
+								for(var i=0;i<e.length;i++){
+									$("#tbody").append("<tr><td><input type='checkbox' name='ck' value="+e[i].uid+"></td><td>"+e[i].username+"</td><td>"+e[i].name+"</td><td>"+e[i].age+"</td><td>"+e[i].sex+"</td><td>"+e[i].cardid+"</td><td>"+e[i].edu+"</td><td>"+e[i].date+"</td><td>"+e[i].major+"</td><td><a href='edit?uid="+e[i].uid+"' ><i class='layui-icon'>&#xe642;</i></a><a href='stop?uid="+e[i].uid+"' ><i class='layui-icon'>&#xe69c;</i></a></td></tr>");
+								} 
+							}
+					})
+						//处理完后可以手动条用selectPage进行页码选中切换
+						this.selectPage(n);
+					},
+					//getHref是在click模式下链接算法，一般不需要配置，默认代码如下
+					getHref : function(n) {
+						return '#';
+					}
+
+				});
+			}
+		})
+		$.ajax({
+			url:"/power/dolist",
+			data:{"num":1,"search":$("#search").val()},
+			type:"post",
+			dataType:"json",
+			success:function (e){
+				$("#tbody").html("");
+				for(var i=0;i<e.length;i++){
+					$("#tbody").append("<tr><td><input type='checkbox' name='ck' value="+e[i].uid+"></td><td>"+e[i].username+"</td><td>"+e[i].name+"</td><td>"+e[i].age+"</td><td>"+e[i].sex+"</td><td>"+e[i].cardid+"</td><td>"+e[i].edu+"</td><td>"+e[i].date+"</td><td>"+e[i].major+"</td><td><a href='edit?uid="+e[i].uid+"' ><i class='layui-icon'>&#xe642;</i></a><a href='stop?uid="+e[i].uid+"' ><i class='layui-icon'>&#xe69c;</i></a></td></tr>");
+				} 
+			}
+		})
+		$.ajax({
+			url:"dataNum",
+			success:function (e){
+				$("#datanum").append(e)
+			}
+		})
+</script>
+</html>

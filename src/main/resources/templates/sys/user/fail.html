@@ -1,0 +1,27 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<title>成功</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+		<br>
+		<div class="container">
+			<div class="jumbotron">
+				<h1>新增失败！</h1>
+				<p th:text="${fail}"></p>
+				<p>
+					<a href="page" class="btn btn-primary btn-lg" role="button">
+					重试</a>
+				</p>
+			</div>
+		</div>
+
+	</body>
+
+</html>

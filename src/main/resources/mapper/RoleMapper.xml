@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.Role">
+		<result column="rid" jdbcType="INTEGER" property="rid" />
+		<result column="rname" jdbcType="VARCHAR" property="rname" />
+		<result column="rdesc" jdbcType="VARCHAR" property="rdesc" />
+	</resultMap>
+	<select id="getListByUID" resultMap="BaseResultMap">
+		SELECT
+		user_role.u_id,
+		user_role.r_id,
+		role.rid,
+		role.rname,
+		role.rdesc
+		FROM
+		role
+		INNER JOIN
+		user_role ON user_role.r_id = role.rid
+		WHERE u_id=#{uid}
+	</select>
+	<select id="getRole" resultType="java.lang.String">
+		SELECT
+		role.rname
+		FROM
+		user_role
+		INNER JOIN role ON user_role.r_id = role.rid
+		INNER JOIN `user` ON
+		`user`.uid = user_role.u_id
+		WHERE username=#{username}
+	</select>
+</mapper>

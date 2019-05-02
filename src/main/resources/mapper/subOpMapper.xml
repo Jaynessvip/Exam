@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.subOpMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.subOp">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="subid" jdbcType="INTEGER" property="subid" />
+		<result column="opid" jdbcType="INTEGER" property="opid" />
+	</resultMap>
+	<insert id="insert" parameterType="com.example.pojo.subOp">
+		insert into sub_op (id, subid, opid
+		)
+		values (#{id,jdbcType=INTEGER}, #{subid,jdbcType=INTEGER},
+		#{opid,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.example.pojo.subOp">
+		insert into sub_op
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="subid != null">
+				subid,
+			</if>
+			<if test="opid != null">
+				opid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="subid != null">
+				#{subid,jdbcType=INTEGER},
+			</if>
+			<if test="opid != null">
+				#{opid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<delete id="delBysubID">
+		DELETE FROM sub_op WHERE subid = #{subjects}
+	</delete>
+</mapper>

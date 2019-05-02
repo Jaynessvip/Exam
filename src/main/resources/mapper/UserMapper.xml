@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.User">
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="username" jdbcType="VARCHAR"
+			property="username" />
+		<result column="password" jdbcType="VARCHAR"
+			property="password" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="age" jdbcType="INTEGER" property="age" />
+		<result column="sex" jdbcType="CHAR" property="sex" />
+		<result column="cardid" jdbcType="VARCHAR" property="cardid" />
+		<result column="edu" jdbcType="VARCHAR" property="edu" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+		<result column="major" jdbcType="VARCHAR" property="major" />
+		<result column="statu" jdbcType="INTEGER" property="statu" />
+		<result column="avatar" jdbcType="INTEGER" property="avatar" />
+	</resultMap>
+	<select id="findByNameAndPSW" resultMap="BaseResultMap">
+		select * from user where
+		<if test="u!=null">
+			username=#{u} 
+		</if>
+		
+		<if test="p!=null">
+			and password =#{p}
+		</if>
+
+	</select>
+	<select id="all" resultMap="BaseResultMap">
+		select * from user
+	</select>
+	<select id="getAllCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM `user`
+		<if test="search!=null">
+			where username like #{search}
+		</if>
+		
+	</select>
+	<select id="getPage" resultMap="BaseResultMap">
+		SELECT * FROM `user` where
+		username like #{search} LIMIT #{num},#{size}
+	</select>
+	<insert id="insert" parameterType="com.example.pojo.User" useGeneratedKeys="true" keyProperty="uid">
+		INSERT INTO user(username,password,date,statu) VALUES (#{username},#{password},#{date},#{statu})
+	</insert>
+	<delete id="delMore">
+		DELETE FROM user WHERE uid = #{ck}
+	</delete>
+	<select id="findByID" resultMap="BaseResultMap">
+		select * from user
+		<if test="uid!=null">
+			where uid=#{uid}
+		</if>
+	</select>
+	<update id="updata" parameterType="com.example.pojo.User">
+		update user set name=#{name},age=#{age},sex=#{sex},cardid=#{cardid},date=#{date},edu=#{edu},major=#{major} where uid=#{uid}
+	</update>
+	<update id="stop">
+		update user set statu = 1 WHERE uid=#{uid}
+	</update>
+	<update id="dopsw">
+		update user set password =#{pass} WHERE uid=#{uid}
+	</update>
+	<update id="upAvatar" parameterType="com.example.pojo.User">
+		update user set avatar =#{avatar} WHERE uid=#{uid}
+	</update>
+</mapper>

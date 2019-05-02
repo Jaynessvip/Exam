@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.GradeMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.Grade">
+		<result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+		<result column="uid" jdbcType="INTEGER" property="uid" />
+		<result column="subid" jdbcType="INTEGER" property="subid" />
+		<result column="score" jdbcType="INTEGER" property="score" />
+	</resultMap>
+	<insert id="insert" parameterType="com.example.pojo.Grade">
+		insert into grade (grade_id, uid, subid,
+		score)
+		values (#{gradeId,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER},
+		#{subid,jdbcType=INTEGER},
+		#{score,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.example.pojo.Grade">
+		insert into grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gradeId != null">
+				grade_id,
+			</if>
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="subid != null">
+				subid,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="gradeId != null">
+				#{gradeId,jdbcType=INTEGER},
+			</if>
+			<if test="uid != null">
+				#{uid,jdbcType=INTEGER},
+			</if>
+			<if test="subid != null">
+				#{subid,jdbcType=INTEGER},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="getGradeList" resultType="com.example.pojo.Grade2">
+		SELECT
+		`subject`.sub_name,
+		grade.score
+		FROM
+		`subject`
+		INNER JOIN grade ON grade.subid = `subject`.sub_id
+		WHERE uid=#{uid}
+	</select>
+</mapper>

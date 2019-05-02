@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="panel panel-info" style="margin-top: 30px;">
+				<div class="panel-heading">
+					<h1 class="panel-title" align="center"><b>校园通知</b></h1>
+				</div>
+				<div class="panel-body" style="height: 300px;">
+					<h3 id="notice"></h3>
+				</div>
+				<hr>
+				<div class="panel-footer" align="center"><p id="date">2019-3-4</p></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$.ajax({
+			url:"/notice/info",
+			dataType:"json",
+			success:function (e){
+				console.log(e);
+				$("#notice").html(e.notice);
+				$("#date").html("发布时间："+e.date);
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.noticeMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.notice">
+		<result column="notice_id" jdbcType="INTEGER"
+			property="noticeId" />
+		<result column="notice" jdbcType="VARCHAR" property="notice" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+	</resultMap>
+	<insert id="insert" parameterType="com.example.pojo.notice">
+		insert into notice (notice_id, notice, date
+		)
+		values (#{noticeId,jdbcType=INTEGER}, #{notice,jdbcType=VARCHAR},
+		#{date,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.example.pojo.notice">
+		insert into notice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="noticeId != null">
+				notice_id,
+			</if>
+			<if test="notice != null">
+				notice,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="noticeId != null">
+				#{noticeId,jdbcType=INTEGER},
+			</if>
+			<if test="notice != null">
+				#{notice,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="getByID" resultMap="BaseResultMap">
+		select * from notice where notice_id=#{id}
+	</select>
+	<update id="update" parameterType="com.example.pojo.notice">
+		UPDATE notice SET notice = #{notice}, date=#{date} WHERE
+		notice_id=#{noticeId}
+	</update>
+</mapper>

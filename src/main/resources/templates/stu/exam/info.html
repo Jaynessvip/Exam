@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>成绩页面</title>
+</head>
+<body>
+<head>
+<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<table class="table table-bordered">
+			<thead align="center">
+				<tr align="center">
+					<th width="50%">学科</th>
+					<th width="50%">成绩</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="i:${list}">
+					<td th:text="${i.sub_name}"></td>
+					<td th:text="${i.score}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</body>
+
+</html>

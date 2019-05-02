@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.SubjectMapper">
+	<resultMap id="BaseResultMap" type="com.example.pojo.Subject">
+		<result column="sub_id" jdbcType="INTEGER" property="subId" />
+		<result column="sub_name" jdbcType="VARCHAR" property="subName" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+	</resultMap>
+	<insert id="insert" parameterType="com.example.pojo.Subject">
+		insert into subject (sub_id,
+		sub_name, date
+		)
+		values (#{subId,jdbcType=INTEGER},
+		#{subName,jdbcType=VARCHAR},
+		#{date,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.example.pojo.Subject">
+		insert into subject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="subId != null">
+				sub_id,
+			</if>
+			<if test="subName != null">
+				sub_name,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="subId != null">
+				#{subId,jdbcType=INTEGER},
+			</if>
+			<if test="subName != null">
+				#{subName,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="getAll" resultMap="BaseResultMap">
+		select * from subject
+		<if test="name!=null">
+			where sub_name like #{name}
+		</if>
+	</select>
+	<select id="getByID" resultMap="BaseResultMap">
+		select * from subject where
+		sub_id=#{id}
+	</select>
+	<select id="getByName" resultMap="BaseResultMap">
+		select * from subject where
+		sub_name = #{name}
+	</select>
+	<update id="updateByID">
+		UPDATE subject SET sub_name = #{name},date=#{date}
+		WHERE sub_id=#{id}
+	</update>
+	<delete id="delByID">
+		DELETE FROM subject WHERE sub_id=#{id}
+	</delete>
+	<select id="getByUID" resultMap="BaseResultMap">
+		SELECT
+		`subject`.sub_id,
+		`subject`.sub_name,
+		`subject`.date
+		FROM
+		user_sub
+		INNER JOIN `subject` ON user_sub.subid = `subject`.sub_id
+		WHERE uid=#{uid}
+	</select>
+</mapper>

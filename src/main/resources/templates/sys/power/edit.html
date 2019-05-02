@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>权限编辑</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+<link rel="stylesheet" href="/static/css/font.css">
+<link rel="stylesheet" href="/static/css/xadmin.css">
+<script type="text/javascript"
+	src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/lib/layui/layui.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/xadmin.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+</head>
+
+<body>
+	<div class="x-body">
+		<form class="layui-form" method="post" action="dopower">
+			<div class="layui-form-item">
+				<label class="layui-form-label"><span class="x-red">*</span>角色</label>
+				<div class="layui-input-block">
+					<input type="hidden"  name="id" th:value="${id}">
+					<input type="checkbox" id="c1" name="power" lay-skin="primary" value="1" title="超级管理员"> 
+					<input type="checkbox" id="c2" name="power" lay-skin="primary" value="2" title="教师"> 
+					<input type="checkbox" id="c3" name="power" lay-skin="primary" value="3" title="学生">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_repass" class="layui-form-label"> </label>
+				<button class="layui-btn" lay-filter="add" lay-submit="">确认</button>
+				<a href="page" class="layui-btn" lay-filter="add" lay-submit="">取消</a>
+			</div>
+		</form>
+	</div>
+	<input id="in1" type="hidden" th:value="${admin}">
+	<input id="in2" type="hidden" th:value="${tec}">
+	<input id="in3" type="hidden" th:value="${stu}">
+</body>
+	<script type="text/javascript">
+		if($("#in1").val()=="true"){
+			$("#c1").attr("checked","checked")
+		}
+		if($("#in2").val()=="true"){
+			$("#c2").attr("checked","checked")
+		}
+		if($("#in3").val()=="true"){
+			$("#c3").attr("checked","checked")
+		}
+	</script>
+</html>

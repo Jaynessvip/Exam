@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.UserRoleMapper">
+	<resultMap id="BaseResultMap"
+		type="com.example.pojo.UserRole">
+		<result column="urole_id" jdbcType="INTEGER" property="uroleId" />
+		<result column="u_id" jdbcType="INTEGER" property="uId" />
+		<result column="r_id" jdbcType="INTEGER" property="rId" />
+	</resultMap>
+	<delete id="deleteByUID">
+		DELETE FROM user_role WHERE u_id = #{uid}
+	</delete>
+	<insert id="insertPowers">
+		insert into user_role(u_id,r_id) values
+		<foreach collection="powers" item="i" separator=",">
+			(#{uid},#{i})
+		</foreach>
+	</insert>
+	<select id="getRolesNamesByUserID" resultType="java.lang.String">
+		SELECT
+		role.rname
+		FROM
+		role
+		INNER JOIN user_role ON user_role.r_id = role.rid
+		WHERE
+		u_id = #{uid}
+	</select>
+</mapper>
